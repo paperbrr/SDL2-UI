@@ -1,11 +1,6 @@
 #include <SDL.h>
-#include <SDL_image.h>
 
 typedef struct{
-    int x;
-    int y;
-    int height;
-    int width;
     SDL_Rect sourceRect;
     SDL_Color color;
     void (*actionFunc) (void* button);
@@ -16,3 +11,7 @@ typedef struct{
     int arrDataSize;
     Button** buttons;
 } ButtonsArray;
+
+void buttonsArr_init(ButtonsArray* buttonArr, int initialSize);
+void createButton(ButtonsArray* buttonArr, int x, int y, int h, int w);
+void buttonClickHandler(SDL_Event* event ,ButtonsArray* buttonArr);
