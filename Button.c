@@ -4,32 +4,39 @@
 #include <SDL_image.h>
 #include "Declarations.h"
 
-void buttonsArr_init(ButtonsArray* buttonArr){
-    buttonArr->buttons = malloc(sizeof(Button));
+void buttonsArr_init(ButtonsArray* buttonArr, int initialSize){
+    buttonArr->buttons = malloc(initialSize* sizeof(Button));
     if (buttonArr->buttons==NULL){
         printf("ERROR");
         exit(1);
     }
-    buttonArr->arrDataSize = sizeof(Button);
+    buttonArr->arrDataSize = initialSize* sizeof(Button);
     buttonArr->length = 0;
 };
 
 void createButton(ButtonsArray* buttonArr, int x, int y, int h, int w){
     Button* newButton = malloc(sizeof(Button));
-    newButton->x = x;
-    newButton->y = y;
-    newButton->height = h;
-    newButton -> width = w;
+    newButton->sourceRect.x = x;
+    newButton->sourceRect.y = y;
+    newButton->sourceRect.h = h;
+    newButton -> sourceRect.w = w;
 
     buttonArr->buttons = realloc(buttonArr->buttons, buttonArr->arrDataSize+sizeof(newButton));
+    buttonArr->buttons[buttonArr->length] = newButton;
     buttonArr->length += 1;
 }
 
-void buttonClicked(ButtonsArray* buttonArr, int clickX, int clickY){
-    for (int i=0; i<buttonArr->length; i++){
-        Button* currentButton = buttonArr->buttons[i];
-        if (currentButton->x+currentButton>clickX && currentButton->y+currentButton>clickY){
-            printf("I GOT CLICKED");
-        } 
+void buttonClickHandler(SDL_Event* event ,ButtonsArray* buttonArr){
+    if (event->type == SDL_MOUSEBUTTONDOWN){
+        if (event->button.button == SDL_BUTTON_LEFT){
+            int clickX = event->button.x;
+            int clickY = event->button.y;
+                for (int i=0; i<buttonArr->length; i++){
+                    SDL_Rect currentButton = buttonArr->buttons[i]->sourceRect;
+                    if (currentButton.x+currentButton.w>clickX && currentButton.y+currentButton.h>clickY){
+                        printf("I GOT CLICKED");
+                    }            
+                }
+        }
     }
 }
