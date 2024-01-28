@@ -39,6 +39,8 @@ int main(int argv, char* args[]){
 		SDL_Delay(100);
 	}
 	
+	freeButtonArray(&buttonsArr);
+
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 
