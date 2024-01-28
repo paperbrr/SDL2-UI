@@ -27,16 +27,28 @@ void createButton(ButtonsArray* buttonArr, int x, int y, int h, int w){
 }
 
 void buttonClickHandler(SDL_Event* event ,ButtonsArray* buttonArr){
-    if (event->type == SDL_MOUSEBUTTONDOWN){
-        if (event->button.button == SDL_BUTTON_LEFT){
-            int clickX = event->button.x;
-            int clickY = event->button.y;
-                for (int i=0; i<buttonArr->length; i++){
-                    SDL_Rect currentButton = buttonArr->buttons[i]->sourceRect;
-                    if (currentButton.x+currentButton.w>clickX && currentButton.y+currentButton.h>clickY){
-                        printf("I GOT CLICKED");
-                    }            
-                }
-        }
+    if (event->type == SDL_MOUSEBUTTONDOWN && event->button.button == SDL_BUTTON_LEFT){        
+        int clickX = event->button.x;
+        int clickY = event->button.y;
+            for (int i=0; i<buttonArr->length; i++){
+                SDL_Rect currentButton = buttonArr->buttons[i]->sourceRect;
+                if (currentButton.x+currentButton.w>clickX && currentButton.y+currentButton.h>clickY){
+                    printf("I GOT CLICKED");
+                }            
+            }
+    
     }
+}
+
+void renderButtons(ButtonsArray* buttonArr, SDL_Renderer* renderer){
+    SDL_SetRenderDrawColor(renderer, 0, 0, 180, 255);
+    for (int i=0; i<buttonArr->length; i++){
+        SDL_RenderFillRect(renderer, &buttonArr->buttons[i]->sourceRect);
+    }
+}
+
+void freeButtonArray(ButtonsArray* buttonArr){
+    free(buttonArr->buttons);
+    buttonArr->arrDataSize = 0;
+    buttonArr->length = 0;
 }
