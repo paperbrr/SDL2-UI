@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <SDL.h>
 #include <SDL_image.h>
+#include "Declarations.h"
 
 int main(int argv, char* args[]){
 
