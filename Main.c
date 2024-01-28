@@ -3,6 +3,10 @@
 #include <SDL_image.h>
 #include "Declarations.h"
 
+void hello(){
+	printf("THE ACTION IS REAL");
+}
+
 int main(int argv, char* args[]){
 
 	SDL_Window* window;
@@ -16,7 +20,7 @@ int main(int argv, char* args[]){
 	ButtonsArray buttonsArr;
 	
 	buttonsArr_init(&buttonsArr, 1);
-	createButton(&buttonsArr, 200, 200, 50, 50);
+	createButton(&buttonsArr, 200, 200, 50, 50, hello);
 	printf("Hello!");
 
 	int gameLoop = 1;
@@ -38,7 +42,7 @@ int main(int argv, char* args[]){
 
 		SDL_Delay(100);
 	}
-	
+	 
 	freeButtonArray(&buttonsArr);
 
 	SDL_DestroyWindow(window);
