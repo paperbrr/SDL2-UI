@@ -18,7 +18,7 @@ int main(int argv, char* args[]){
 
 
 	ButtonsArray buttonsArr;
-	
+
 	buttonsArr_init(&buttonsArr, 1);
 	createButton(&buttonsArr, 200, 200, 50, 50, hello);
 	printf("Hello!");
