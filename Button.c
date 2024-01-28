@@ -14,12 +14,13 @@ void buttonsArr_init(ButtonsArray* buttonArr, int initialSize){
     buttonArr->length = 0;
 };
 
-void createButton(ButtonsArray* buttonArr, int x, int y, int h, int w){
+void createButton(ButtonsArray* buttonArr, int x, int y, int h, int w, void (*action) ()){
     Button* newButton = malloc(sizeof(Button));
     newButton->sourceRect.x = x;
     newButton->sourceRect.y = y;
     newButton->sourceRect.h = h;
     newButton -> sourceRect.w = w;
+    newButton->actionFunc = action;
 
     buttonArr->buttons = realloc(buttonArr->buttons, buttonArr->arrDataSize+sizeof(newButton));
     buttonArr->buttons[buttonArr->length] = newButton;
@@ -31,12 +32,11 @@ void buttonClickHandler(SDL_Event* event ,ButtonsArray* buttonArr){
         int clickX = event->button.x;
         int clickY = event->button.y;
             for (int i=0; i<buttonArr->length; i++){
-                SDL_Rect currentButton = buttonArr->buttons[i]->sourceRect;
-                if (currentButton.x+currentButton.w>clickX && currentButton.y+currentButton.h>clickY){
-                    printf("I GOT CLICKED");
+                Button* currentButton = buttonArr->buttons[i];
+                if (currentButton->sourceRect.x+currentButton->sourceRect.w>clickX && currentButton->sourceRect.y+currentButton->sourceRect.h>clickY){
+                    currentButton->actionFunc();
                 }            
             }
-    
     }
 }
 
