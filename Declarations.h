@@ -13,7 +13,7 @@ typedef struct{
 } ButtonsArray;
 
 void buttonsArr_init(ButtonsArray* buttonArr, int initialSize);
-void createButton(ButtonsArray* buttonArr, int x, int y, int h, int w, void (*actionPtr) ());
+void createButton(ButtonsArray* buttonArr, int x, int y, int h, int w, void (*actionPtr) (), SDL_Color color);
 void renderButtons(ButtonsArray* buttonArr, SDL_Renderer* renderer);
 void buttonClickHandler(SDL_Event* event ,ButtonsArray* buttonArr);
 void freeButtonArray(ButtonsArray* buttonArr);
