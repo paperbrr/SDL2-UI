@@ -26,10 +26,7 @@ int main(int argv, char* args[]){
 
 		SDL_SetRenderDrawColor(renderer, 150, 150, 150, 255);
     	SDL_RenderClear(renderer);
-		SDL_SetRenderDrawColor(renderer, 0, 0, 180, 255);
-		for (int i=0; i<buttonsArr.length; i++){
-			SDL_RenderFillRect(renderer, &buttonsArr.buttons[i]->sourceRect);
-		}
+		renderButtons(&buttonsArr, renderer);
 		SDL_RenderPresent(renderer);
 
 		while (SDL_PollEvent(&event)!=0) {
