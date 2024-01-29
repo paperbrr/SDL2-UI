@@ -5,12 +5,12 @@
 #include "Declarations.h"
 
 void buttonsArr_init(ButtonsArray* buttonArr, int initialSize){
-    buttonArr->buttons = malloc(initialSize* sizeof(Button));
+    buttonArr->buttons = malloc(initialSize* sizeof(Button*));
     if (buttonArr->buttons==NULL){
         printf("ERROR");
         exit(1);
     }
-    buttonArr->arrDataSize = initialSize* sizeof(Button);
+    buttonArr->arrDataSize = initialSize* sizeof(Button*);
     buttonArr->length = 0;
 };
 
@@ -27,6 +27,7 @@ void createButton(ButtonsArray* buttonArr, int x, int y, int h, int w, void (*ac
 
     buttonArr->buttons = realloc(buttonArr->buttons, buttonArr->arrDataSize+sizeof(newButton));
     buttonArr->buttons[buttonArr->length] = newButton;
+    buttonArr->arrDataSize += sizeof(newButton);
     buttonArr->length += 1;
 }
 
