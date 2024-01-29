@@ -36,7 +36,11 @@ void buttonClickHandler(SDL_Event* event ,ButtonsArray* buttonArr){
         int clickY = event->button.y;
             for (int i=0; i<buttonArr->length; i++){
                 Button* currentButton = buttonArr->buttons[i];
-                if (currentButton->sourceRect.x+currentButton->sourceRect.w>clickX && currentButton->sourceRect.y+currentButton->sourceRect.h>clickY){
+                int buttonLeftEdge = currentButton->sourceRect.x;
+                int buttonRightEdge = buttonLeftEdge + currentButton->sourceRect.w;
+                int buttonTop = currentButton->sourceRect.y;
+                int buttonDown = currentButton->sourceRect.h + buttonTop;
+                if (buttonLeftEdge<clickX && buttonRightEdge>clickX && buttonTop<clickY && buttonDown>clickY){
                     currentButton->actionFunc();
                 }            
             }
