@@ -35,6 +35,23 @@ void frame_alloc(Frame* frame, UITypes type, void* uiElement){
     }
 }
 
+void renderFrame(SDL_Renderer* renderer, Frame* frame){
+    for (int i=0; i<frame->buttonArrLen; i++){
+        Button* button = frame->buttonArr[i];
+        SDL_SetRenderDrawColor(renderer, button->color.r, button->color.g, button->color.b, button->color.a);
+        SDL_RenderFillRect(renderer, &button->sourceRect);
+        SDL_RenderFillRect(renderer, &button->wrapperRect);
+        SDL_RenderCopy(renderer, button->buttonTexture, NULL, &button->wrapperRect);
+    }
+    for (int i=0; i<frame->labelArrLen; i++){
+        Label* label = frame->labelArr[i];
+        SDL_SetRenderDrawColor(renderer, label->color.r, label->color.g, label->color.b, label->color.a);
+        SDL_RenderFillRect(renderer, &label->sourceRect);
+        SDL_RenderFillRect(renderer, &label->wrapperRect);
+        SDL_RenderCopy(renderer, label->labelTexture, NULL, &label->wrapperRect);
+    }
+}
+
 void frame_free(Frame* frame){
     for (int i=0; i<frame->labelArrLen;i++){
         free(frame->labelArr[i]);
