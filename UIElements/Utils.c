@@ -1,5 +1,6 @@
 #include <SDL_ttf.h>
 #include <SDL.h>
+#include <stdio.h>
 
 SDL_Texture* createCharTexture(char* text, int* wrapperW, int* wrapperH, SDL_Renderer* renderer){
     TTF_Font* openSans = TTF_OpenFont("../generic-platformer/fonts/OpenSans-Regular.ttf", 25);
