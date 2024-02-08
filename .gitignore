@@ -3,3 +3,4 @@ SDL2/
 *.exe
 Main.c
 Makefile
+.vscode/
