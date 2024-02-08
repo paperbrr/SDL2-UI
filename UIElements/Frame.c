@@ -42,7 +42,7 @@ void renderFrame(SDL_Renderer* renderer, Frame* frame){
         SDL_SetRenderDrawColor(renderer, button->color.r, button->color.g, button->color.b, button->color.a);
         SDL_RenderFillRect(renderer, &button->sourceRect);
         SDL_RenderFillRect(renderer, &button->wrapperRect);
-        SDL_RenderCopy(renderer, button->buttonTexture, NULL, &button->wrapperRect);
+        if (button->buttonTexture!=NULL) {SDL_RenderCopy(renderer, button->buttonTexture, NULL, &button->wrapperRect);}
     }
     for (int i=0; i<frame->labelArrLen; i++){
         Label* label = frame->labelArr[i];
