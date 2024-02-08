@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+extern char* fontPath;
+extern int fontSize;
+void fontInit(char* newPath, int fontSize);
+
 typedef enum{
     label,
     button,
