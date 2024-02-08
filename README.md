@@ -1,16 +1,23 @@
-A simple button for SDL2 projects :D
+**A simple and easy to use UI Framework for SDL2 projects**
 
-Features ->
-1) Custom color for your button
-2) Freedom to define its dimensions
-3) Option to assign a custom event when it is clicked
-4) An array of all buttons created for easy tracking
+***DEPENDANCIES***
+-> SDL2
+-> SDL_ttf
 
-Usage ->
-1) Place ```Button.c``` and ```Declarations.h``` in the same directory
-2) Initialise the ```buttonArray``` struct
-3) To create a block, use the ```createButton()``` function with appropriate parameters [the button array, x, y, w, h, action-function, color]
-4) Use the ```renderButtons``` function to render all the buttons in your ```buttonArray``` (should be placed before a ```SDL_RenderPresent```)
-5) Use the ```buttonClickHandler``` function in your event loop to sort out button click events and react with the assigned action function
+***INITIALISATION INSTRUCTIONS***
+1) Place the ``UIElements`` directory inside your working directory.
+2) Include ``UI.h`` inside your file.
+3) Add compilation instructions for ``Button.c``, ``Frame.c``, ``Label.c`` and ``Utils.c``.
+4) Make sure that ``SDL_ttf`` is included and initialised.
+5) Use the ``fontInit()`` function to set a font path and size.
 
-Make sure to use the ```freeButtonArray``` at the end of your program to prevent memory leaks!
+***USAGE***
+
+1) *Frames*
+All UI elements are associated with a parent ``Frame`` object. Multiple frames can be created, and each frame has to be rendered separately. To create a frame, instantiate a new ``Frame`` struct and initialise it with the ``frame_init()`` function. Make sure to use ``free_frame()`` at the end (for each frame) to prevent memory leaks!
+
+2) *Labels*
+Label elements can be created using the ``createLabel()`` function. Changeable attributes include *x*, *y*, *w*, *h* and *color*. To set *text* for the label, use the ``label_SetText()`` function. The *text* property can be set without this function, but changes won't render. The rendered text is centered, but may explode if the size of the text is bigger than the size of the label.
+
+3) *Buttons*
+Button elements can be created using the ``createButton()`` function. Changeable attributes include *x*, *y*, *w*, *h*, *color* and *actionFunc*. The *actionFunc* attribute is a pointer to a user-defined function which will execute when it is clicked. The custom function should not take any arguments. To register clicks, use the ``button_HandleClicks()`` function. 
