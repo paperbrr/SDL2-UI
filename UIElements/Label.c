@@ -1,4 +1,4 @@
-#include "Declarations.h"
+#include "UI.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL.h>

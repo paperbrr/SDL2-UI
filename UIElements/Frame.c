@@ -1,4 +1,4 @@
-#include "Declarations.h"
+#include "UI.h"
 
 void frame_init(Frame* newFrame){
     newFrame->type = frame;
