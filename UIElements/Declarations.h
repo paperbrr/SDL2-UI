@@ -1,5 +1,7 @@
 #pragma once
 #include <SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef enum{
     label,
@@ -69,3 +71,6 @@ void frame_init(Frame* frame);
 void renderFrame(SDL_Renderer* renderer, Frame* frame);
 void frame_alloc(Frame* frame, UITypes type, void* uiElement);
 void frame_free(Frame* frame);
+
+SDL_Texture* createCharTexture(char* text, int* wrapperW, int* wrapperH, SDL_Renderer* renderer);
+void wrapText(SDL_Rect* wrapperRect, SDL_Rect* parentRect);
