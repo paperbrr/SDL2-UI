@@ -71,7 +71,7 @@ Button* createButton(Frame* parentFrame, SDL_Color color,void (*actionFunc) (), 
 void button_handleClicks(Frame* frame, int mouseClickX, int mouseClickY);
 void button_SetText(Button* button, char* text, SDL_Renderer* renderer);
 
-void frame_init(Frame* frame);
+void frame_init(Frame* frame, int initialSize);
 void renderFrame(SDL_Renderer* renderer, Frame* frame);
 void frame_alloc(Frame* frame, UITypes type, void* uiElement);
 void frame_free(Frame* frame);
