@@ -1,11 +1,11 @@
 #include "UI.h"
 
-void frame_init(Frame* newFrame){
+void frame_init(Frame* newFrame, int initialSize){
     newFrame->type = frame;
 
-    newFrame->buttonArr = malloc(sizeof(Button*));
-    newFrame->labelArr = malloc(sizeof(Label*));
-    newFrame->textBoxArr = malloc(sizeof(TextBox*));
+    newFrame->buttonArr = malloc(sizeof(Button*)*initialSize);
+    newFrame->labelArr = malloc(sizeof(Label*)*initialSize);
+    newFrame->textBoxArr = malloc(sizeof(TextBox*)*initialSize);
 
     if (newFrame->buttonArr==NULL || newFrame->labelArr==NULL || newFrame->textBoxArr==NULL){printf("error");return;}
 
@@ -13,21 +13,21 @@ void frame_init(Frame* newFrame){
     newFrame->labelArrLen = 0;
     newFrame->textboxArrlen = 0;
 
-    newFrame->buttonArrSize = sizeof(Button*);
-    newFrame->labelArrSize = sizeof(Label*);
-    newFrame->textBoxArrSize = sizeof(TextBox*);
+    newFrame->buttonArrSize = sizeof(Button*)*initialSize;
+    newFrame->labelArrSize = sizeof(Label*)*initialSize;
+    newFrame->textBoxArrSize = sizeof(TextBox*)*initialSize;
 }
 
 void frame_alloc(Frame* frame, UITypes type, void* uiElement){
     if (type==button){
-        frame->buttonArr = realloc(frame->buttonArr, frame->buttonArrSize+sizeof(Button*));
+        if (frame->buttonArrSize - (sizeof(Button*)*frame->buttonArrLen) < 10*sizeof(Button*)) {frame->buttonArr = realloc(frame->buttonArr, frame->buttonArrSize+10*sizeof(Button*));}
         if (frame->buttonArr==NULL){printf("error");return;}
         frame->buttonArr[frame->buttonArrLen] = (Button*) uiElement;
         frame->buttonArrLen += 1;
         frame->buttonArrSize += sizeof(Button*);
     }
     else if (type==label){
-        frame->labelArr = realloc(frame->labelArr, frame->labelArrSize+sizeof(Label*));
+        if (frame->labelArrSize - (sizeof(Label*)*frame->labelArrLen) < 10*sizeof(Label*)) {frame->labelArr = realloc(frame->labelArr, frame->labelArrSize+10*sizeof(Label*));}
         if (frame->labelArr==NULL){printf("error");return;}
         frame->labelArr[frame->labelArrLen] = (Label*) uiElement;
         frame->labelArrLen += 1;
