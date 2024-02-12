@@ -65,16 +65,16 @@ typedef struct{
 
 
 Label* createLabel(Frame* parentFrame, SDL_Color color, int x, int y, int w, int h);
-void label_SetText(Label* label, char* text, SDL_Renderer* renderer);
+void label_SetText(Label* label, char* text, SDL_Renderer* renderer, SDL_Color textColor);
 
 Button* createButton(Frame* parentFrame, SDL_Color color,void (*actionFunc) (), int x, int y, int w, int h);
 void button_handleClicks(Frame* frame, int mouseClickX, int mouseClickY);
-void button_SetText(Button* button, char* text, SDL_Renderer* renderer);
+void button_SetText(Button* button, char* text, SDL_Renderer* renderer, SDL_Color textColor);
 
 void frame_init(Frame* frame, int initialSize);
 void renderFrame(SDL_Renderer* renderer, Frame* frame);
 void frame_alloc(Frame* frame, UITypes type, void* uiElement);
 void frame_free(Frame* frame);
 
-SDL_Texture* createCharTexture(char* text, int* wrapperW, int* wrapperH, SDL_Renderer* renderer);
+SDL_Texture* createCharTexture(char* text, int* wrapperW, int* wrapperH, SDL_Renderer* renderer, SDL_Color textColor);
 void wrapText(SDL_Rect* wrapperRect, SDL_Rect* parentRect);
