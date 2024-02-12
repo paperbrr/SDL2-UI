@@ -40,8 +40,8 @@ void button_handleClicks(Frame* frame, int mouseClickX, int mouseClickY){
     }
 }
 
-void button_SetText(Button* button, char* text, SDL_Renderer* renderer){
-    button->buttonTexture = createCharTexture(text, &button->wrapperRect.w, &button->wrapperRect.h, renderer);
+void button_SetText(Button* button, char* text, SDL_Renderer* renderer, SDL_Color textColor){
+    button->buttonTexture = createCharTexture(text, &button->wrapperRect.w, &button->wrapperRect.h, renderer, textColor);
     wrapText(&button->wrapperRect, &button->sourceRect);
     button->text = text;
 }

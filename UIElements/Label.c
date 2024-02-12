@@ -27,8 +27,8 @@ Label* createLabel(Frame* parentFrame, SDL_Color color, int x, int y, int w, int
 }
 
 
-void label_SetText(Label* label, char* text, SDL_Renderer* renderer){
-    label->labelTexture = createCharTexture(text, &label->wrapperRect.w, &label->wrapperRect.h, renderer);
+void label_SetText(Label* label, char* text, SDL_Renderer* renderer, SDL_Color textColor){
+    label->labelTexture = createCharTexture(text, &label->wrapperRect.w, &label->wrapperRect.h, renderer, textColor);
     wrapText(&label->wrapperRect, &label->sourceRect);
     label->text = strdup(text);
 }
