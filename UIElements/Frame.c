@@ -37,10 +37,13 @@ void frame_alloc(Frame* frame, UITypes type, void* uiElement){
 
 void renderFrame(SDL_Renderer* renderer, Frame* frame){
 
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
     for (int i=0; i<frame->buttonArrLen; i++){
         Button* button = frame->buttonArr[i];
         SDL_SetRenderDrawColor(renderer, button->color.r, button->color.g, button->color.b, button->color.a);
         SDL_RenderFillRect(renderer, &button->sourceRect);
+        SDL_SetRenderDrawColor(renderer, button->color.r, button->color.g, button->color.b, 0);
         SDL_RenderFillRect(renderer, &button->wrapperRect);
         if (button->buttonTexture!=NULL) {SDL_RenderCopy(renderer, button->buttonTexture, NULL, &button->wrapperRect);}
     }
@@ -48,6 +51,7 @@ void renderFrame(SDL_Renderer* renderer, Frame* frame){
         Label* label = frame->labelArr[i];
         SDL_SetRenderDrawColor(renderer, label->color.r, label->color.g, label->color.b, label->color.a);
         SDL_RenderFillRect(renderer, &label->sourceRect);
+        SDL_SetRenderDrawColor(renderer, label->color.r, label->color.g, label->color.b, 0);
         SDL_RenderFillRect(renderer, &label->wrapperRect);
         if(label->labelTexture!=NULL) {SDL_RenderCopy(renderer, label->labelTexture, NULL, &label->wrapperRect);}
     }
