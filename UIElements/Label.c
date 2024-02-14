@@ -17,6 +17,7 @@ Label* createLabel(Frame* parentFrame, SDL_Color color, int x, int y, int w, int
 
     newLabel->labelTexture = NULL;
 
+    newLabel->visible = 1;
     newLabel->sourceRect.x = x;
     newLabel->sourceRect.y = y;
     newLabel->sourceRect.w = w;

@@ -17,6 +17,7 @@ Button* createButton(Frame* parentFrame, SDL_Color color, void (*actionFunc) (),
 
     newButton->buttonTexture = NULL;
 
+    newButton->visible = 1;
     newButton->sourceRect.x = x;
     newButton->sourceRect.y = y;
     newButton->sourceRect.w = w;
