@@ -9,7 +9,7 @@ Button* createButton(Frame* parentFrame, SDL_Color color, void (*actionFunc) (),
     Button* newButton = malloc(sizeof(Button));
     if (newButton==NULL){printf("error");return NULL;}
 
-    newButton->type = button;
+    newButton->type = BUTTON;
 
     newButton->actionFunc = actionFunc;
     newButton->color = color;
@@ -22,7 +22,7 @@ Button* createButton(Frame* parentFrame, SDL_Color color, void (*actionFunc) (),
     newButton->sourceRect.w = w;
     newButton->sourceRect.h = h;
 
-    frame_alloc(parentFrame, button, (void*) newButton);
+    frame_alloc(parentFrame, BUTTON, (void*) newButton);
     return newButton;
 }
 
@@ -44,4 +44,8 @@ void button_SetText(Button* button, char* text, SDL_Renderer* renderer, SDL_Colo
     button->buttonTexture = createCharTexture(text, &button->wrapperRect.w, &button->wrapperRect.h, renderer, textColor);
     wrapText(&button->wrapperRect, &button->sourceRect);
     button->text = text;
+}
+
+void button_free(Button* button){
+    frame_DelChild(button->parentFrame, (void*)button, BUTTON);
 }
