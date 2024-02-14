@@ -18,6 +18,8 @@ typedef struct{
     void* parentFrame;
     UITypes type;
 
+    int visible;
+
     SDL_Rect sourceRect;
     SDL_Rect wrapperRect;
     SDL_Texture* labelTexture;
@@ -29,6 +31,8 @@ typedef struct{
 typedef struct{
     void* parentFrame;
     UITypes type;
+
+    int visible;
 
     SDL_Rect sourceRect;
     SDL_Rect wrapperRect;
