@@ -8,10 +8,10 @@ extern int fontSize;
 void fontInit(char* newPath, int fontSize);
 
 typedef enum{
-    label,
-    button,
-    textbox,
-    frame
+    LABEL,
+    BUTTON,
+    TEXTBOX,
+    FRAME
 }UITypes;
 
 typedef struct{
@@ -66,15 +66,18 @@ typedef struct{
 
 Label* createLabel(Frame* parentFrame, SDL_Color color, int x, int y, int w, int h);
 void label_SetText(Label* label, char* text, SDL_Renderer* renderer, SDL_Color textColor);
+void label_free(Label* label);
 
 Button* createButton(Frame* parentFrame, SDL_Color color,void (*actionFunc) (), int x, int y, int w, int h);
 void button_handleClicks(Frame* frame, int mouseClickX, int mouseClickY);
 void button_SetText(Button* button, char* text, SDL_Renderer* renderer, SDL_Color textColor);
+void button_free(Button* button);
 
 void frame_init(Frame* frame, int initialSize);
 void renderFrame(SDL_Renderer* renderer, Frame* frame);
 void frame_alloc(Frame* frame, UITypes type, void* uiElement);
 void frame_free(Frame* frame);
+int frame_DelChild(Frame* frame, void* child, UITypes type);
 
 SDL_Texture* createCharTexture(char* text, int* wrapperW, int* wrapperH, SDL_Renderer* renderer, SDL_Color textColor);
 void wrapText(SDL_Rect* wrapperRect, SDL_Rect* parentRect);
