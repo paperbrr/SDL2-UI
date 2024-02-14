@@ -1,7 +1,7 @@
 #include "UI.h"
 
 void frame_init(Frame* newFrame, int initialSize){
-    newFrame->type = frame;
+    newFrame->type = FRAME;
 
     newFrame->buttonArr = malloc(sizeof(Button*)*initialSize);
     newFrame->labelArr = malloc(sizeof(Label*)*initialSize);
@@ -19,14 +19,14 @@ void frame_init(Frame* newFrame, int initialSize){
 }
 
 void frame_alloc(Frame* frame, UITypes type, void* uiElement){
-    if (type==button){
+    if (type==BUTTON){
         if (frame->buttonArrSize - (sizeof(Button*)*frame->buttonArrLen) < 10*sizeof(Button*)) {frame->buttonArr = realloc(frame->buttonArr, frame->buttonArrSize+10*sizeof(Button*));}
         if (frame->buttonArr==NULL){printf("error");return;}
         frame->buttonArr[frame->buttonArrLen] = (Button*) uiElement;
         frame->buttonArrLen += 1;
         frame->buttonArrSize += sizeof(Button*);
     }
-    else if (type==label){
+    else if (type==LABEL){
         if (frame->labelArrSize - (sizeof(Label*)*frame->labelArrLen) < 10*sizeof(Label*)) {frame->labelArr = realloc(frame->labelArr, frame->labelArrSize+10*sizeof(Label*));}
         if (frame->labelArr==NULL){printf("error");return;}
         frame->labelArr[frame->labelArrLen] = (Label*) uiElement;
@@ -59,8 +59,51 @@ void renderFrame(SDL_Renderer* renderer, Frame* frame){
 
 void frame_free(Frame* frame){
     for (int i=0; i<frame->labelArrLen;i++){
-        free(frame->labelArr[i]);
+        SDL_DestroyTexture(frame->labelArr[i]->labelTexture);
     }
+    free(frame->labelArr);
     frame->labelArrLen = 0;
     frame->labelArrSize = 0;
+
+    for (int i=0; i<frame->buttonArrLen;i++){
+        SDL_DestroyTexture(frame->buttonArr[i]->buttonTexture);
+    }
+    free(frame->buttonArr);
+    frame->buttonArrLen = 0;
+    frame->buttonArrSize = 0;
+}
+
+int frame_DelChild(Frame* frame, void* child, UITypes type){
+    if (type==LABEL){
+        for (int i=0;i<frame->labelArrLen;i++){
+            if (frame->labelArr[i]==(Label*)child){
+                SDL_DestroyTexture(frame->labelArr[i]->labelTexture);
+                free(frame->labelArr[i]);
+                for (int j=i;j<frame->labelArrLen-1;j++){
+                    frame->labelArr[j] = frame->labelArr[j+1];
+                }
+                frame->labelArr[frame->labelArrLen] = NULL;
+                frame->labelArrSize -= sizeof(Label*);
+                frame->labelArr = realloc(frame->labelArr, frame->labelArrSize);
+                frame->labelArrLen -= 1;
+                break;
+            }
+        }
+    }
+    else if (type==BUTTON){
+        for (int i=0;i<frame->buttonArrLen;i++){
+            if (frame->buttonArr[i]==(Button*)child){
+                SDL_DestroyTexture(frame->buttonArr[i]->buttonTexture);
+                free(frame->buttonArr[i]);
+                for (int j=i;j<frame->buttonArrLen-1;j++){
+                    frame->buttonArr[j] = frame->buttonArr[j+1];
+                }
+                frame->buttonArr[frame->buttonArrLen] = NULL;
+                frame->buttonArrSize -= sizeof(Button*);
+                frame->buttonArr = realloc(frame->buttonArr, frame->buttonArrSize);
+                frame->buttonArrLen -= 1;
+                break;
+            }
+        }
+    }
 }
