@@ -10,7 +10,7 @@ Label* createLabel(Frame* parentFrame, SDL_Color color, int x, int y, int w, int
     Label* newLabel = malloc(sizeof(Label));
     if (newLabel==NULL){printf("error");return NULL;}
 
-    newLabel->type = label;
+    newLabel->type = LABEL;
 
     newLabel->color = color;
     newLabel->parentFrame = parentFrame;
@@ -22,7 +22,7 @@ Label* createLabel(Frame* parentFrame, SDL_Color color, int x, int y, int w, int
     newLabel->sourceRect.w = w;
     newLabel->sourceRect.h = h;
 
-    frame_alloc(parentFrame, label, (void*) newLabel);
+    frame_alloc(parentFrame, LABEL, (void*) newLabel);
     return newLabel;
 }
 
@@ -30,5 +30,9 @@ Label* createLabel(Frame* parentFrame, SDL_Color color, int x, int y, int w, int
 void label_SetText(Label* label, char* text, SDL_Renderer* renderer, SDL_Color textColor){
     label->labelTexture = createCharTexture(text, &label->wrapperRect.w, &label->wrapperRect.h, renderer, textColor);
     wrapText(&label->wrapperRect, &label->sourceRect);
-    label->text = strdup(text);
+    label->text = text;
+}
+
+void label_free(Label* label){
+    frame_DelChild(label->parentFrame, (void*)label, LABEL);
 }
