@@ -9,6 +9,8 @@ void frame_init(Frame* newFrame, int initialSize){
 
     if (newFrame->buttonArr==NULL || newFrame->labelArr==NULL || newFrame->textBoxArr==NULL){printf("error");return;}
 
+    newFrame->visible = 1;
+
     newFrame->buttonArrLen = 0;
     newFrame->labelArrLen = 0;
     newFrame->textboxArrlen = 0;
@@ -36,6 +38,8 @@ void frame_alloc(Frame* frame, UITypes type, void* uiElement){
 }
 
 void renderFrame(SDL_Renderer* renderer, Frame* frame){
+
+    if (frame->visible == 0) {return;}
 
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     
