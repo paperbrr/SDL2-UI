@@ -54,6 +54,8 @@ typedef struct{
 typedef struct{
     UITypes type;
 
+    int visible;
+
     Label** labelArr;
     Button** buttonArr;
     TextBox** textBoxArr;
